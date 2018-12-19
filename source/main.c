@@ -636,18 +636,12 @@ int main (void) {
 	} while (1 == 0);
 	
 	gfxExit();
-	hidExit();
-	aptExit();
-	srvExit();
 	return 0;
 }
 
 void setup (void) {
 	int g;
 	/* Inicializar 3DS */
-	srvInit();
-	aptInit();
-	hidInit(NULL);
 	gfxInitDefault();
 	gfxSet3D(0);
 	gfxSetDoubleBuffering (GFX_BOTTOM, 1);
