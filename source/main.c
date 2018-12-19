@@ -633,7 +633,7 @@ int main (void) {
 	do {
 		if (game_intro () == GAME_QUIT) break;
 		if (game_loop () == GAME_QUIT) break;
-	} while (1 == 0);
+	} while (true);
 	
 	gfxExit();
 	return 0;
