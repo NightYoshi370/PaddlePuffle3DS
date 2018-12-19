@@ -35,7 +35,7 @@ GRAPHICS	:=	gfx
 ALPHA_GRAPHICS := gfx/alpha
 
 APP_TITLE := Paddle Puffle
-APP_DESCRIPTION := Play paddle puffle
+APP_DESCRIPTION := Play paddle puffle `git describe --tags | sed 's/\(.*\)-.*/\1/'`
 APP_AUTHOR := Gatuno
 ICON := paddle.png
 
@@ -173,6 +173,8 @@ endif
 $(OUTPUT).3dsx	:	$(OUTPUT).elf
 $(OUTPUT).elf	:	$(OFILES)
 
+.PRECIOUS	:	%.bgr %.bgra
+
 #---------------------------------------------------------------------------------
 # you need a rule like this for each extension you use as binary data
 #---------------------------------------------------------------------------------
@@ -181,10 +183,8 @@ $(OUTPUT).elf	:	$(OFILES)
 	@echo $(notdir $<)
 	@$(bin2o)
 
-
-
 #---------------------------------------------------------------------------------
-%.bgr.o: %.bgr
+%.bgr.o %_bgr.h: %.bgr
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	@$(bin2o)
@@ -195,11 +195,15 @@ $(OUTPUT).elf	:	$(OFILES)
 	@echo $(notdir $<)
 	@convert $< -rotate 90 $@
 
-%.bgra.o: %.bgra
+#---------------------------------------------------------------------------------
+%.bgra.o %_bgra.h: %.bgra
+#---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	@$(bin2o)
 
+#---------------------------------------------------------------------------------
 %.bgra: %.png
+#---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	@convert $< -rotate 90 $@
 
